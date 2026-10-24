@@ -10,7 +10,7 @@ app = Flask(__name__)
 # Lấy các biến môi trường
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
-GITHUB_REPO = os.environ.get("GITHUB_REPO", "xuyendt88/fb-ai-agent-automation") # Thay bằng tên repo GitHub của bạn nếu cần
+GITHUB_REPO = os.environ.get("GITHUB_REPO", "xuyendt88/fb-ai-agent-automation-") # Thay bằng tên repo GitHub của bạn nếu cần
 FILE_PATH = "leads_log.json"
 
 # Khởi tạo client Gemini mới nhất
@@ -78,7 +78,7 @@ def webhook():
 
 
 def save_lead_to_github(new_lead):
-    url = f"[https://api.github.com/repos/](https://api.github.com/repos/){GITHUB_REPO}/contents/{FILE_PATH}"
+    url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{FILE_PATH}"
     headers = {
         "Authorization": f"Bearer {GITHUB_TOKEN}",
         "Accept": "application/vnd.github+json"
