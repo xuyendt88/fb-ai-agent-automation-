@@ -81,7 +81,7 @@ def webhook():
         """
         
         response = client.models.generate_content(
-            model='gemini-3.8-flash',
+            model='gemini-3.5-flash',
             contents=prompt,
         )
         lead_score = response.text.strip()
