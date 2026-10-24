@@ -78,7 +78,7 @@ def webhook():
 
 
 def save_lead_to_github(new_lead):
-    url = f"[https://api.github.com/repos/](https://api.github.com/repos/){GITHUB_REPO}/contents/{FILE_PATH}"
+    url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{FILE_PATH}"
     headers = {
         "Authorization": f"Bearer {GITHUB_TOKEN}",
         "Accept": "application/vnd.github+json"
@@ -160,7 +160,7 @@ def generate_automated_content():
         print(f"Lỗi khi AI tự động tạo bài viết: {e}")
 
 def save_post_to_github(post_content, topic):
-    url = f"[https://api.github.com/repos/](https://api.github.com/repos/){GITHUB_REPO}/contents/{POSTS_FILE_PATH}"
+    url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{FILE_PATH}"
     headers = {
         "Authorization": f"Bearer {GITHUB_TOKEN}",
         "Accept": "application/vnd.github+json"
