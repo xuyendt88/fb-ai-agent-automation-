@@ -160,7 +160,8 @@ def generate_automated_content():
         print(f"Lỗi khi AI tự động tạo bài viết: {e}")
 
 def save_post_to_github(post_content, topic):
-    url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{FILE_PATH}"
+    # SỬA THÀNH POSTS_FILE_PATH Ở ĐÂY:
+    url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{POSTS_FILE_PATH}"
     headers = {
         "Authorization": f"Bearer {GITHUB_TOKEN}",
         "Accept": "application/vnd.github+json"
