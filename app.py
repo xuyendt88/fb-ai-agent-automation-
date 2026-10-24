@@ -16,46 +16,51 @@ GITHUB_REPO = "xuyendt88/fb-ai-agent-automation"  # Tên repo của bạn
 FILE_PATH = "leads_log.json"                  # File lưu danh sách lead trên GitHub
 
 def save_lead_to_github(new_lead):
-    """Hàm tự động đọc, cập nhật và đẩy file leads_log.json lên GitHub"""
+    """Hàm tự động đọc, lấy SHA, cập nhật và đẩy file leads_log.json lên GitHub"""
     url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{FILE_PATH}"
     headers = {
         "Authorization": f"Bearer {GITHUB_TOKEN}",
         "Accept": "application/vnd.github+json"
     }
-
-    # Bước A: Lấy nội dung hiện tại của file trên GitHub (nếu có)
-    response = requests.get(url, headers=headers)
-    leads_list = []
+    
+    # 1. Gọi GET để lấy nội dung cũ và mã SHA hiện tại của file trên GitHub
+    get_resp = requests.get(url, headers=headers)
     sha = None
-
-    if response.status_code == 200:
-        file_data = response.json()
+    leads_list = []
+    
+    if get_resp.status_code == 200:
+        file_data = get_resp.json()
         sha = file_data.get("sha")
-        # Giải mã nội dung cũ từ Base64
+        # Giải mã nội dung cũ nếu có
         content_decoded = base64.b64decode(file_data["content"]).decode("utf-8")
-        import json
         try:
             leads_list = json.loads(content_decoded)
+            if not isinstance(leads_list, list):
+                leads_list = []
         except:
             leads_list = []
-
-    # Thêm lead mới vào danh sách
+            
+    # 2. Thêm lead mới vào danh sách
     leads_list.append(new_lead)
-
-    # Bước B: Mã hóa lại danh sách mới sang chuẩn Base64
-    import json
+    
+    # 3. Mã hóa lại danh sách mới sang chuẩn Base64
     updated_content = json.dumps(leads_list, ensure_ascii=False, indent=4)
-    content_encoded = base64.b64encode(updated_content.encode("utf-8")).decode("utf-8")
-
-    # Bước C: Gửi yêu cầu Commit cập nhật file lên GitHub
+    encoded_content = base64.b64encode(updated_content.encode("utf-8")).decode("utf-8")
+    
+    # 4. Chuẩn bị payload để PUT lên GitHub
     payload = {
-        "message": f"Auto-save new lead: {new_lead['name_company']} at {new_lead['timestamp']}",
-        "content": content_encoded,
-        "sha": sha  # Bắt buộc phải có sha nếu file đã tồn tại để tránh xung đột
+        "message": "Update leads_log.json automatically via AI Agent",
+        "content": encoded_content,
+        "branch": "main"
     }
     
-    put_response = requests.put(url, headers=headers, json=payload)
-    return put_response.status_code in [200, 201]
+    # Nếu file đã tồn tại, bắt buộc phải truyền thêm mã sha
+    if sha:
+        payload["sha"] = sha
+        
+    # 5. Gửi request PUT lên GitHub API
+    put_resp = requests.put(url, headers=headers, json=payload)
+    return put_resp.status_code in [200, 201]
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
