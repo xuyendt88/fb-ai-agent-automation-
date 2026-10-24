@@ -7,5 +7,14 @@
             "potential_level": "Cao",
             "analysis": "Doanh nghiệp có nhu cầu rất rõ ràng, cụ thể và cấp thiết về việc tự động hóa CSKH trên Facebook. Là một công ty công nghệ, họ có độ hiểu biết và khả năng ứng dụng giải pháp AI nhanh chóng. Giải pháp gợi ý: Triển khai AI Chatbot tích hợp LLM trên Facebook Messenger, có khả năng huấn luyện dựa trên tài liệu dịch vụ của công ty để tư vấn chuyên sâu, tự động chốt đơn/lấy thông tin lead và phân luồng cho tư vấn viên khi cần."
         }
+    },
+    {
+        "name_company": "Công ty TNHH Giải pháp Công nghệ ABC",
+        "pain_point": "Muốn tự động hóa khâu chăm sóc khách hàng trên Facebook bằng AI.",
+        "ai_evaluation": {
+            "score": 88,
+            "potential_level": "Cao",
+            "analysis": "Doanh nghiệp có nhu cầu rất cụ thể, rõ ràng và tính khả thi cao khi muốn ứng dụng AI vào chăm sóc khách hàng trên Facebook. Là một công ty công nghệ, họ sẽ dễ dàng tiếp cận và đánh giá cao giá trị của giải pháp. Đề xuất: Tư vấn giải pháp AI Chatbot tích hợp trực tiếp Fanpage Facebook, có khả năng học dữ liệu sản phẩm/dịch vụ tự động và đồng bộ với hệ thống CRM hiện tại."
+        }
     }
 ]
