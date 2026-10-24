@@ -1,3 +1,4 @@
 flask
-gspread
+requests
 google-genai
+gunicorn
